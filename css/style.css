@@ -22,7 +22,7 @@ img {
   padding:120px 60px 60px 60px;
   top:50%;
   left:50%;
-  margin:-420px 0 0 -300px;
+  margin:-420px 0 0 -300px; 
 }
 
 @media screen and (max-width: 570px) or (max-height:570px) {

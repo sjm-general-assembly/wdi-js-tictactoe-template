@@ -1,7 +1,7 @@
 $(function() {
 
   //### 'jquery' UI elements for game manipulation
-  //var game              =    // the game container
+  var game              =    $('#game');
   //var board             =    // the board  container
   var status_indicators = $('#teams li');   // status bar container
 
@@ -36,9 +36,12 @@ $(function() {
   var initialize = function() {
     //### ready the board for game play
 
-    //### 1.) Create nine tiles. Each is a div, each needs to be bound to 'handle_click'.
-    //### Make sure giving each tile a unique 'id' for targeting. Find tile's 'class' in css.
-    //### Append tiles to board.
+    for (var i=0; i < 9; i++) {
+      var ele = $('<div/>', {id: "tile"+i, class: "tile"})
+                .on('click', handle_click)
+                .appendTo($('#board'));
+      tiles.push(ele);
+    }
 
     //### 2.) Make first player the current_player
 
@@ -48,10 +51,12 @@ $(function() {
     //### - the 'current_player' has a different style (see css '.current')
 
     //### 4.) fade in the game
+    game.fadeIn();
   };
 
-  var handle_click = function() {
+  var handle_click = function(event) {
     //### this function is bound to a click event for each tile on the board
+    alert('clicked ' + event.currentTarget.id);
   };
 
   var is_active = function(tile) {
