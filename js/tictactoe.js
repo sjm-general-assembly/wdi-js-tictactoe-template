@@ -10,13 +10,13 @@ $(function() {
   var players = [                         // player data
     {
       name:      'Ernie',
-      marker:    '&times;',
+      marker:    'X',
       img_url:   'img/ernie.jpg',
       indicator: $(status_indicators[0])
     },
     {
       name:      'Bert',
-      marker:    '&oslash;',
+      marker:    'O',
       img_url:   'img/bert.jpg',
       indicator: $(status_indicators[1])
     }
@@ -28,7 +28,9 @@ $(function() {
   //### There are eight winning combos, the first two are supplied.
   //### What are the other six? Add 'em.
   var win_combos = [
-    [0,1,2], [3,4,5]
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8], [2,4,6]
   ];
 
   var initialize = function() {
@@ -50,7 +52,7 @@ $(function() {
 
   var handle_click = function() {
     //### this function is bound to a click event for each tile on the board
-  }
+  };
 
   var is_active = function(tile) {
     //### boolean - is tile active?
@@ -90,7 +92,7 @@ $(function() {
     //### - show results panel
     //### - display tie and rubber ducky image
     //### - show new_game button
-  }
+  };
 
   var hide_indicators = function() {
     //### optional: call this to hide the "status" container after detecting a win or a tie
@@ -99,12 +101,12 @@ $(function() {
   var show_combo = function(combo) {
     //### optional: call this to highlight the combination of tiles that resulted in a win
     //### e.g. colors winning XXX or OOO red.
-  }
+  };
 
   var new_game = function() {
     // see http://stackoverflow.com/questions/2405117/difference-between-window-location-href-window-location-href-and-window-location
     // nothing to add here
-    window.location.href = window.location.href
+    window.location.href = window.location.href;
   };
 
   // call initialize() to get the party started
