@@ -76,6 +76,11 @@ $(function() {
         return true;
       }
 
+      if (is_tie()) {
+        handle_tie();
+        return false;
+      }
+
       toggle_player();
     }
 
@@ -122,6 +127,7 @@ $(function() {
   var is_tie = function() {
     //### has the game resulted in a tie?
     //### returns boolean
+    return (!is_win() && turns >= 9);
   };
 
   var handle_win = function() {
