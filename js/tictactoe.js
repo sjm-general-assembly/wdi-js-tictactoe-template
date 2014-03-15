@@ -1,8 +1,8 @@
 $(function() {
 
   //### 'jquery' UI elements for game manipulation
-  var game              =    $('#game');
-  //var board             =    // the board  container
+  var game              = $('#game');
+  var board             = $('#board');   
   var status_indicators = $('#teams li');   // status bar container
 
   var tiles = [];                         // all the "tiles"
@@ -34,29 +34,35 @@ $(function() {
   ];
 
   var initialize = function() {
-    //### ready the board for game play
+    // ready the board for game play
 
+    // create the play tiles
     for (var i=0; i < 9; i++) {
       var ele = $('<div/>', {id: "tile"+i, class: "tile"})
                 .on('click', handle_click)
-                .appendTo($('#board'));
+                .appendTo(board);
       tiles.push(ele);
     }
 
-    //### 2.) Make first player the current_player
+    // Make first player the current_player
+    current_player = _.first(players);
 
-    //### 3.) Set up the players 'indicators' in UI
-    //### - set player image, name, marker
-    //### - set player name
-    //### - the 'current_player' has a different style (see css '.current')
-
-    //### 4.) fade in the game
+    // Set up the players 'indicators' in UI
+    _.each(players, function(player) {
+      $('.team', player.indicator).html(player.marker);
+      $('.player', player.indicator).html(player.name);
+      $('img', player.indicator).attr('src', player.img_url);
+      if (player === current_player) {
+        player.indicator.addClass('current');
+      }
+    });
+    
+    // fade in the game
     game.fadeIn();
   };
 
   var handle_click = function(event) {
-    //### this function is bound to a click event for each tile on the board
-    alert('clicked ' + event.currentTarget.id);
+    //$(event.currentTarget.id).html(current_player.marker);
   };
 
   var is_active = function(tile) {
