@@ -62,7 +62,13 @@ $(function() {
   };
 
   var handle_click = function(event) {
-    //$(event.currentTarget.id).html(current_player.marker);
+    if (event.currentTarget.innerHTML !== "") {
+      alert('This tile has already been played on!');
+    }
+    else {
+      event.currentTarget.innerHTML = current_player.marker;      
+      toggle_player();
+    }
   };
 
   var is_active = function(tile) {
@@ -76,6 +82,15 @@ $(function() {
 
   var toggle_player = function() {
     //### After each turn, toggle the current player and update player indicators
+    current_player.indicator.toggleClass('current');
+
+    if (current_player === _.first(players)) {
+      current_player = _.last(players);
+    }
+    else {
+      current_player = _.first(players);
+    }
+    current_player.indicator.toggleClass('current');
   };
 
 
