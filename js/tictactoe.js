@@ -70,8 +70,15 @@ $(function() {
     }
     else {
       activate_tile(tile);
+
+      if (is_win()) {
+        handle_win();
+        return true;
+      }
+
       toggle_player();
     }
+
   };
 
   var is_active = function(tile) {
@@ -103,6 +110,13 @@ $(function() {
   var is_win = function() {
     // ### whether or not the current player's positions result in a win
     // ### returns boolean
+    var result = false;
+    _.each(win_combos, function(win_combo) {
+      if (_.intersection(win_combo, current_player.tiles).length === win_combo.length) {
+        result = true;
+      }
+    });
+    return result;
   };
 
   var is_tie = function() {
@@ -116,7 +130,8 @@ $(function() {
     //### - display winner name and image
     //### - congrats message
     //### - show new_game button
-
+    alert(current_player.name + " wins!!");
+    new_game();
   };
 
   var handle_tie = function() {
@@ -124,6 +139,8 @@ $(function() {
     //### - show results panel
     //### - display tie and rubber ducky image
     //### - show new_game button
+    alert('Bummer. A tie.');
+    new_game();
   };
 
   var hide_indicators = function() {
