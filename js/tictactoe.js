@@ -12,13 +12,15 @@ $(function() {
       name:      'Ernie',
       marker:    'X',
       img_url:   'img/ernie.jpg',
-      indicator: $(status_indicators[0])
+      indicator: $(status_indicators[0]),
+      tiles: []
     },
     {
       name:      'Bert',
       marker:    'O',
       img_url:   'img/bert.jpg',
-      indicator: $(status_indicators[1])
+      indicator: $(status_indicators[1]),
+      tiles: []
     }
   ];
 
@@ -38,7 +40,7 @@ $(function() {
 
     // create the play tiles
     for (var i=0; i < 9; i++) {
-      var ele = $('<div/>', {id: "tile"+i, class: "tile"})
+      var ele = $('<div/>', {id: "tile"+i, class: "tile", name: i})
                 .on('click', handle_click)
                 .appendTo(board);
       tiles.push(ele);
@@ -61,29 +63,33 @@ $(function() {
     game.fadeIn();
   };
 
-  var handle_click = function(event) {
-    if (event.currentTarget.innerHTML !== "") {
+  var handle_click = function() {
+    tile = $(this);
+    if (is_active(tile)) {
       alert('This tile has already been played on!');
     }
     else {
-      event.currentTarget.innerHTML = current_player.marker;      
+      activate_tile(tile);
       toggle_player();
     }
   };
 
   var is_active = function(tile) {
     //### boolean - is tile active?
+    return (tile.html() !== "");
   };
   
   var activate_tile = function(tile) {
     //### activate tile
     //### don't forget to up 'turn' count
+    tile.html(current_player.marker);
+    current_player.tiles.push(+tile.attr('name'));  // note, the unary '+' converts to int.
+    turns++;
   };
 
   var toggle_player = function() {
     //### After each turn, toggle the current player and update player indicators
     current_player.indicator.toggleClass('current');
-
     if (current_player === _.first(players)) {
       current_player = _.last(players);
     }
