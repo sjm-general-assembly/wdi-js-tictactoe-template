@@ -13,7 +13,7 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
     {id: "tile8", name: "8", marker: ""}
   ];
 
-  $scope.win_combos = [
+  $scope.winCombos = [
     [0,1,2], [3,4,5], [6,7,8],
     [0,3,6], [1,4,7], [2,5,8],
     [0,4,8], [2,4,6]
@@ -34,19 +34,45 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
     }
   ];
   $scope.currentPlayer = $scope.players[0];  // initialize to first player
+  
   $scope.turns = 0;
 
   $scope.togglePlayer = function() {
     $scope.currentPlayer = $scope.players[$scope.turns % $scope.players.length];
   };
 
+  $scope.activateTile = function(tile) {    
+    tile.marker = $scope.currentPlayer.marker;
+    // store the number of the activated tile, in the current user tile list
+    $scope.currentPlayer.tiles.push(+tile.name);
+    $scope.turns++;
+  };
+
+  $scope.isWin = function() {
+    var result = false;
+    _.each($scope.winCombos, function(winCombo) {
+      if (_.intersection(winCombo, $scope.currentPlayer.tiles).length === winCombo.length) {
+        result = true;
+      }
+    });
+    return result;
+  };
+
+  $scope.handleWin = function () {
+    alert($scope.currentPlayer.name + " wins!!");
+  };
+
   $scope.tileClick = function(tile) {
     if (tile.marker !== "") {
       alert("This tile has already been played!");
     }
-    else {      
-      tile.marker = $scope.currentPlayer.marker;
-      $scope.turns++;
+    else {     
+      $scope.activateTile(tile);
+      if ($scope.isWin()) {
+        $scope.handleWin();
+        return true;
+      }
+
       $scope.togglePlayer();
     }
   };
