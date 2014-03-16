@@ -15,7 +15,7 @@
         </li>
       </ul>
       <div id="board">
-        <div ng-repeat="tile in tiles" id='{{tile.id}}' name='{{tile.name}}' class='tile' ng-click='tileClick(tile)'></div>
+        <div ng-repeat="tile in tiles" id='{{tile.id}}' name='{{tile.name}}' class='tile' ng-click='tileClick(tile)'>{{tile.marker}}</div>
       </div>
       <div id="results">
         <h1></h1>
