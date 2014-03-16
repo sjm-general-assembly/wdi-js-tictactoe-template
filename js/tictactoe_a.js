@@ -13,6 +13,12 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
     {id: "tile8", name: "8", marker: ""}
   ];
 
+  $scope.win_combos = [
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8], [2,4,6]
+  ];
+
   $scope.players = [            
     {
       name:      'Ernie',
@@ -35,9 +41,14 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
   };
 
   $scope.tileClick = function(tile) {
-    tile.marker = $scope.currentPlayer.marker;
-    $scope.turns++;
-    $scope.togglePlayer();
+    if (tile.marker !== "") {
+      alert("This tile has already been played!");
+    }
+    else {      
+      tile.marker = $scope.currentPlayer.marker;
+      $scope.turns++;
+      $scope.togglePlayer();
+    }
   };
 
   $scope.isCurrentPlayer = function(player) {
