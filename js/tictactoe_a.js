@@ -43,7 +43,8 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
 
   $scope.activateTile = function(tile) {    
     tile.marker = $scope.currentPlayer.marker;
-    // store the number of the activated tile, in the current user tile list
+    // store the number of the activated tile, in the current user tile list.
+    // note, the unary '+' converts to int.
     $scope.currentPlayer.tiles.push(+tile.name);
     $scope.turns++;
   };
@@ -60,6 +61,7 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
 
   $scope.handleWin = function() {
     alert($scope.currentPlayer.name + " wins!!");
+    $scope.newGame();
   };
 
   $scope.isTie = function() {
@@ -68,6 +70,7 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
 
   $scope.handleTie = function() {
     alert('Bummer. A tie. Try again.');
+    $scope.newGame();
   };
 
   $scope.tileClick = function(tile) {
@@ -92,6 +95,10 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
 
   $scope.isCurrentPlayer = function(player) {
     return (player === $scope.currentPlayer);
+  };
+
+  $scope.newGame = function() {
+    window.location.href = window.location.href;
   };
 
   $scope.init = function() {
