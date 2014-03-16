@@ -58,8 +58,16 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
     return result;
   };
 
-  $scope.handleWin = function () {
+  $scope.handleWin = function() {
     alert($scope.currentPlayer.name + " wins!!");
+  };
+
+  $scope.isTie = function() {
+    return (!$scope.isWin() && $scope.turns >= 9);
+  };
+
+  $scope.handleTie = function() {
+    alert('Bummer. A tie. Try again.');
   };
 
   $scope.tileClick = function(tile) {
@@ -71,6 +79,11 @@ tictactoeApp.controller('GameCtrl', function ($scope) {
       if ($scope.isWin()) {
         $scope.handleWin();
         return true;
+      }
+
+      if ($scope.isTie()) {
+        $scope.handleTie();
+        return false;
       }
 
       $scope.togglePlayer();
