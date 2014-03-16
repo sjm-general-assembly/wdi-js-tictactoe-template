@@ -6,17 +6,16 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
-
      <div id="game" ng-controller="GameCtrl">
        <ul id="teams">
-        <li ng-repeat="player in players">
-          <img src="{{player.img_url}}">
+        <li ng-repeat="player in players" ng-class="{'current': isCurrentPlayer(player)}">
+          <img ng-src="{{player.img_url}}">
           <h2>Team <span class="team">{{player.marker}}</span></h2>
           <h3 class="player">{{player.name}}</h3>
         </li>
       </ul>
       <div id="board">
-        <div ng-repeat="tile in tiles" id='{{tile.id}}' name='{{tile.name}}' class='tile'></div>
+        <div ng-repeat="tile in tiles" id='{{tile.id}}' name='{{tile.name}}' class='tile' ng-click='tileClick(tile)'></div>
       </div>
       <div id="results">
         <h1></h1>
